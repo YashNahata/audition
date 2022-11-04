@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+}
+
+/* GENERAL STYLING */
+
+section{
+    padding: 100px 0;
+}
+.max-width{
+    max-width: 1300px;
+    padding: 0 80px;
+    margin: auto;
+}
+.page, .about, .roles, .navbar, .teams, .why_edc, footer{
+    font-family: 'Poppins', sans-serif;
+}
+.about .about-content,
+.page .page-content,
+.why_edc-content,
+.roles .serv-content,
+.skills .skills-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+section .title{
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+section .title::before{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 180px;
+    height: 3px;
+    background: #111;
+    transform: translateX(-50%);
+}
+section .title::after{
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    font-size: 20px;
+    color: #1b4a4c;
+    padding: 0 5px;
+    background: #fff;
+    transform: translateX(-50%);
+}
+
+/* FRONT PAGE STYLING */
+.page{
+    padding-top: 200px;
+}
+.page .title::after{
+    content: "who we are";
+}
+.page .page-content .left{
+    width: 65%;
+}
+.page .page-content .left img{
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.page .page-content .right{
+    width: 35%;
+}
+.page .page-content .right .text{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.page .page-content .right .text span{
+    color: crimson;
+}
+.page .page-content .right p{
+    text-align: justify;
+}
+
+/* ABOUT SECTION STYLING */
+
+.about .title::after{
+    content: "who we are";
+}
+.about .about-content .left{
+    width: 45%;
+}
+.about .about-content .left img{
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid black;
+}
+.about .about-content .right{
+    width: 55%;
+}
+.about .about-content .right .text{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.about .about-content .right .text span{
+    color: #0F3D3E;
+}
+.about .about-content .right p{
+    text-align: justify;
+}
+/* services section styling */
+.roles, .teams{
+    color:#fff;
+    background: #052829;
+}
+.roles .title::before{
+    background: #fff;
+}
+.roles .title::after{
+    background: #052829;
+    color: rgb(219, 207, 207) !important;
+    content: "what we look for";
+}
+.roles .serv-content .card{
+    width: calc(33% - 20px);
+    background: #0F3D3E;
+    text-align: center;
+    border-radius: 6px;
+    padding: 50px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.roles .serv-content .card:hover{
+    background: #426464;
+}
+.roles .serv-content .card .box{
+    transition: all 0.3s ease;
+}
+.roles .serv-content .card:hover .box{
+    transform: scale(1.05);
+}
+.roles .serv-content .card i{
+    font-size: 50px;
+    color: #E7F6F2;
+    transition: color 0.3s ease;
+}
+.roles .serv-content .card:hover i{
+    color: #E2DCC8;
+}
+.roles .serv-content .card .text{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 10px 0 7px 0;
+    color: #E7F6F2;
+}
+
+/* WHY PAGE STYLING */
+
+.why_edc .title::after{
+    content: "why to join us";
+}
+.why_edc .why_edc-content .left{
+    width: 65%;
+}
+.why_edc .why_edc-content .left img{
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.why_edc .why_edc-content .right{
+    width: 35%;
+}
+.why_edc .why_edc-content .right .text{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.why_edc .why_edc-content .right .text span{
+    color: #052829;
+}
+.why_edc .why_edc-content .right p{
+    text-align: justify;
+}
+/* CAROUSEL STYLING */
+
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+/* footer section styling */
+footer{
+    background: #052829;
+    padding: 15px 23px;
+    color: rgb(219, 207, 207);
+    text-align: center;
+}
+footer span a{
+    color: white;
+    text-decoration: none;
+}
+footer span a:hover{
+    text-decoration: underline;
+}
+.navbar{
+    background-color: #052829;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    /* padding: 30px 0; */
+    font-family: 'Ubuntu', sans-serif;
+    transition: all 0.3s ease;
+    height: 90px;
+}
+li a{
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #E2DCC8;
+}
+.logo{
+    height: 115px;
+    width: 200px;
+    padding-top: 15px;
+}
+.nav_links li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+@media (max-width: 1104px) {
+    .page .page-content .left img{
+        height: 350px;
+        width: 350px;
+    }
+    .about .about-content .column{
+        width: 100%;
+    }
+    .about .about-content .left{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+    .about .about-content .right{
+        flex: 100%;
+    }
+}
+
+@media (max-width: 991px) {
+    .max-width{
+        padding: 0 50px;
+    }
+}
+@media (max-width: 947px){
+    .menu-btn{
+        display: block;
+        z-index: 999;
+    }
+    .menu-btn i.active:before{
+        content: "\f00d";
+    }
+    .navbar .menu{
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        left: -100%;
+        top: 0;
+        background: #111;
+        text-align: center;
+        padding-top: 80px;
+        transition: all 0.3s ease;
+    }
+    .navbar .menu.active{
+        left: 0;
+    }
+    .navbar .menu li{
+        display: block;
+    }
+    .navbar .menu li a{
+        display: inline-block;
+        margin: 20px 0;
+        font-size: 25px;
+    }
+    .home .home-content .text-2{
+        font-size: 40px;
+    }
+    .home .home-content .text-3{
+        font-size: 15px;
+    }
+    .home .home-content a{
+        font-size: 15px;
+        padding: 10px 30px;
+    }
+    .max-width{
+        max-width: 930px;
+    }
+    .page .page-content .column{
+        width: 100%;
+    }
+    .page .page-content .left{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+    .page .page-content .right{
+        flex: 100%;
+    }
+    /* .about .about-content .column{
+        width: 100%;
+    }
+    .about .about-content .left{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+    .about .about-content .right{
+        flex: 100%;
+    } */
+    .why_edc .why_edc-content .column{
+        width: 100%;
+    }
+    .why_edc .why_edc-content .left{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+    .why_edc .why_edc-content .right{
+        flex: 100%;
+    }
+    .roles .serv-content .card{
+        width: calc(50% - 10px);
+        margin-bottom: 20px;
+    }
+    .swiper {
+        width: 50%;
+        height: 50%;
+      }
+}
+
+@media (max-width: 690px) {
+    .max-width{
+        padding: 0 23px;
+    }
+    .home .home-content .text-2{
+        font-size: 30px;
+    }
+    .home .home-content .text-3{
+        font-size: 20px;
+    }
+    .home .home-content a{
+        font-size: 20px;
+    }
+    .roles .serv-content .card{
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .home .home-content .text-2{
+        font-size: 50px;
+    }
+    .home .home-content .text-3{
+        font-size: 27px;
+    }
+    .page .page-content .right .text{
+        font-size: 19px;
+    }
+    .about .about-content .right .text{
+        font-size: 19px;
+    }
+    .why_edc .why_edc-content .right .text{
+        font-size: 19px;
+    }
+    .right form .error-box{
+       width: 150px;
+    }
+    .scroll-up-btn{
+        right: 15px;
+        bottom: 15px;
+        height: 38px;
+        width: 35px;
+        font-size: 23px;
+        line-height: 38px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .home{
+        width: 100vh;
+    }
+    .page{
+        width: 100vh;
+    }
+    .roles{
+        width: 100vh;
+    }
+    .about{
+        width: 100vh;
+    }
+    .why_edc{
+        width: 100vh;
+    }
+    .footer{
+        width: 100vh;
+    }
+  }
+
+  .menu-icon {
+    color: white;
+    cursor: pointer;
+    display: none;
+}
+@media screen and (max-width: 850px) {
+    .menu-icon {
+        display: block;
+   }
+}

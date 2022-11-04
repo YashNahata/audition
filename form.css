@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background-color: black; */
+}
+/* html{
+    scroll-behavior: smooth;
+}
+.container{
+    background-color: white !important;
+    margin-left: 50vh;
+    margin-right: 50vh;
+    margin-top: 5vh;
+}
+body{
+    background-color: white !important;
+} */
+
+body {
+    background-color: rgb(16, 41, 41);
+    font-family: Arial;
+    /* overflow: hidden; */
+}
+.card {
+    background-color: white;
+    border-radius: 18px;
+    box-shadow: 1px 1px 8px 0 grey;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 20px 20px 20px 20px;
+    margin-top: 20vh;
+    margin-left: 15vw;
+    margin-right: 15vw;
+}
+.titles{
+    color: black;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+.form-control{
+    height: 40px;
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid rgb(9, 14, 14);
+    /* padding-top: 50px; */
+}
+
+
+
+
