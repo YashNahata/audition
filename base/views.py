@@ -16,29 +16,31 @@ def index(request):
 def roundOne(request):
     user= request.user
     if request.method == 'POST':
-        name = request.POST['name']        
-        place = request.POST['place']
-        branch = request.POST['branch']
-        roll_number = request.POST['roll_number']
-        phone_number = request.POST['phone_number']
-        year = request.POST['year']
-        stage = '0'
-        if Student.objects.filter(user=user).first() is not None:
-            s = Student.objects.get(user=user)
-            s.user = user
-            s.name = name
-            s.place = place
-            s.year = year
-            s.branch = branch
-            s.roll_number = roll_number
-            s.phone_number = phone_number
-            s.stage = '0'
-            s.save(update_fields=['name', 'place', 'year', 'branch', 'roll_number', 'phone_number'])
-        else:    
-            student = Student.objects.create( user=user,name=name, year=year, stage=stage, branch=branch, place=place, roll_number=roll_number, phone_number=phone_number)
-            student.save()
-        messages.success(request, "Data saved successfully")
-        return redirect('/round-1')
+        messages.error(request,"Registrations closed! Try contacting an EDC memeber if you still want in!")
+        return redirect('/')
+    #     name = request.POST['name']
+    #     place = request.POST['place']
+    #     branch = request.POST['branch']
+    #     roll_number = request.POST['roll_number']
+    #     phone_number = request.POST['phone_number']
+    #     year = request.POST['year']
+    #     stage = '0'
+    #     if Student.objects.filter(user=user).first() is not None:
+    #         s = Student.objects.get(user=user)
+    #         s.user = user
+    #         s.name = name
+    #         s.place = place
+    #         s.year = year
+    #         s.branch = branch
+    #         s.roll_number = roll_number
+    #         s.phone_number = phone_number
+    #         s.stage = '0'
+    #         s.save(update_fields=['name', 'place', 'year', 'branch', 'roll_number', 'phone_number'])
+    #     else:    
+    #         student = Student.objects.create( user=user,name=name, year=year, stage=stage, branch=branch, place=place, roll_number=roll_number, phone_number=phone_number)
+    #         student.save()
+    #     messages.success(request, "Data saved successfully")
+    #     return redirect('/round-1#survey-form-core')
 
     saved_data = Student.objects.filter(user=user).first()
 
@@ -418,6 +420,38 @@ def nextRoundCSV(request):
     else:
         return redirect('/')
 
+def allUserExceptStudentsCSV(request):
+    if request.user.username == 'admin':
+        users = User.objects.all()
+        new_users = []
+        for user in users:
+            if(Student.objects.all().filter(user=user).first()==None):
+                if(ClubMember.objects.all().filter(user=user).first()==None):
+                    new_users.append(user)
+        # print(new_users)
+        # students = Student.objects.all()
+        # new_students = []
+        # students = new_students
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="students-not-registered.csv"'
+        writer = csv.writer(response)
+        writer.writerow(
+                [
+                    "Name",
+                    "Email"
+                ]
+            )
+        for user in new_users:
+            writer.writerow(
+                [
+                    user.first_name + " " + user.last_name,
+                    user.email
+                ]
+            )
+        return response
+    else:
+        return redirect('/')
+
 def allStudentsCSV(request):
     if request.user.username == 'admin':
         students = Student.objects.all()
@@ -464,6 +498,103 @@ def allStudentsCSV(request):
     else:
         return redirect('/')
 
+def techStudentsCSV(request):
+    if request.user.username == 'admin':
+        students = Student.objects.all()
+        new_students = []
+        for student in students:
+            if ClubMember.objects.filter(user=student.user).first() is None:
+                new_students.append(student)
+        students = new_students
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="tech-students.csv"'
+        writer = csv.writer(response)
+        writer.writerow(
+                [
+                    "Name",
+                    "Branch",
+                    "Roll Number",
+                    "Place",
+                    "Phone Number",
+                    "Email",
+                    "Domain"
+                ]
+            )
+        for student in students:
+            student_responses = Response.objects.filter(student=student)
+            domain = set()
+            for student_response in student_responses:
+                domain.add(student_response.category)
+            da = ""
+            for d in domain:
+                if d != 'Core':
+                    da = da + d + " "
+            for d in domain:
+                if d =='GD'or d=='Video': 
+                    writer.writerow(
+                        [
+                            student.name,
+                            student.branch,
+                            student.roll_number,
+                            student.place,
+                            student.phone_number,
+                            student.user.email,
+                            da
+                        ]
+            )
+        return response
+    else:
+        return redirect('/')
+    
+def webStudentsCSV(request):
+    if request.user.username == 'admin':
+        students = Student.objects.all()
+        new_students = []
+        for student in students:
+            if ClubMember.objects.filter(user=student.user).first() is None:
+                new_students.append(student)
+        students = new_students
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="web-students.csv"'
+        writer = csv.writer(response)
+        writer.writerow(
+                [
+                    "Name",
+                    "Branch",
+                    "Roll Number",
+                    "Place",
+                    "Phone Number",
+                    "Email",
+                    "Domain"
+                ]
+            )
+        for student in students:
+            student_responses = Response.objects.filter(student=student)
+            domain = set()
+            for student_response in student_responses:
+                domain.add(student_response.category)
+            da = ""
+            for d in domain:
+                if d != 'Core':
+                    da = da + d + " "
+            for d in domain:
+                if d =='Web': 
+                    writer.writerow(
+                        [
+                            student.name,
+                            student.branch,
+                            student.roll_number,
+                            student.place,
+                            student.phone_number,
+                            student.user.email,
+                            da
+                        ]
+            )
+        return response
+    else:
+        return redirect('/')
+
+
 def studentResponseCSV(request):
     if request.user.username == 'admin':
         students = Student.objects.all()
@@ -479,6 +610,8 @@ def studentResponseCSV(request):
                 [
                     "Name",
                     "Phone Number",
+                    "Roll No.",
+                    "Department",
                     "Question",
                     "Category",
                     "Response"
@@ -489,12 +622,16 @@ def studentResponseCSV(request):
             writer.writerow(
                 [
                     student.name,
-                    student.phone_number
+                    student.phone_number,
+                    student.roll_number,
+                    student.branch,
                 ]
             )
             for student_response in student_responses:
                 writer.writerow(
                     [
+                        "",
+                        "",
                         "",
                         "",
                         student_response.question_text,
@@ -542,6 +679,18 @@ def rejectedStudentsCSV(request):
     else:
         return redirect('/')
 
+def getDomains(student):
+    students_responses = Response.objects.filter(student=student)
+    # print(students_responses)
+    domains = set()
+    for response in students_responses:
+        domains.add(response.category)
+    domains_str = ""
+    for domain in domains:
+        domains_str += domain + ", "
+    # print(domains_str)
+    return domains_str
+
 def allStudents(request):
     if request.user.is_authenticated and ClubMember.objects.filter(user=request.user).first() is not None:
         students = Student.objects.all()
@@ -550,15 +699,31 @@ def allStudents(request):
         reviewed = ''
         for student in students:
             if ClubMember.objects.filter(user=student.user).first() is None:
-                new_students.append(student)
-                if MemberFeedback.objects.filter(student=student).all().count() == 0:
-                    reviewed = 'No'
+                new_student = {}
+                new_student['domains'] = getDomains(student)
+                new_student['id'] = student.id
+                new_student['name']=student.name
+                new_student['branch']=student.branch
+                new_student['roll_number'] = student.roll_number
+                new_student['year'] = student.year
+                new_student['user'] = student.user
+                new_student['phone_number'] = student.phone_number
+                new_student['stage'] = student.stage
+                
+                # new_student['']
+                # print(new_student)
+                # print(student)
+                count = MemberFeedback.objects.filter(student=student).all().count()
+                # print(count==0)
+                if count == 0:
+                    new_student['reviewed'] = 'No'
                 else:
-                    reviewed = 'Yes'
+                    new_student['reviewed'] = 'Yes'
+                new_students.append(new_student)
                 context.append({
-                    'student': student,
-                    'reviewed': reviewed
+                    'student': new_student
                 })
+        # print(context)
         return render(request, 'base/table-admin2.html', { 'data': context  })
     else:
         return redirect('/')
@@ -570,8 +735,10 @@ def studentId(request, slug):
         responses = Response.objects.filter(student=student).all()
         all_feedback = MemberFeedback.objects.filter(student=student).all()
         member_feedback = MemberFeedback.objects.filter(student=student, member=ClubMember.objects.filter(user=request.user).first()).first()
+        domains = getDomains(student)
         data.append({
             'student': student,
+            'domains': domains,
             'responses': responses,
             'all_feedback': all_feedback,
             'member_feedback': member_feedback
