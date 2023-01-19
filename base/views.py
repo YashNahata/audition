@@ -746,3 +746,44 @@ def studentId(request, slug):
         return render(request, 'base/profile2.html', { 'data': data })
     else:
         return redirect('/')
+
+def memberFeedbackCSV(request):
+    if request.user.username == 'admin':
+        students = Student.objects.all()
+        new_students = []
+        for student in students:
+            if ClubMember.objects.filter(user=student.user).first() is None:
+                new_students.append(student)
+        students = new_students
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="feedbacks.csv"'
+        writer = csv.writer(response)
+        writer.writerow(
+                [
+                    "Name",
+                    "Phone Number",
+                    "Roll No.",
+                    "Feedback by",
+                    "Feedback"
+                ]
+        )
+        for student in students:
+            if MemberFeedback.objects.filter(student=student).all().count() != 0:
+                writer.writerow([
+                    student.name,
+                    student.phone_number,
+                    student.roll_number,
+                ])
+                all_feedback = MemberFeedback.objects.filter(student=student).all()
+                for feedback in all_feedback:
+                    writer.writerow([
+                        "",
+                        "",
+                        "",
+                        feedback.member.user,
+                        feedback.feedback
+                    ])
+                writer.writerow([])
+        return response
+    else:
+        return redirect('/')

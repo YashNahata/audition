@@ -12,6 +12,7 @@ urlpatterns = [
     path('all-students', views.allStudents, name="allStudents"),
     path('is-selected', views.isSelected, name="isSelected"),
     path('nextRoundCSV', views.nextRoundCSV, name="nextRoundCSV"),
+    path('memberFeedbackCSV', views.memberFeedbackCSV, name="memberFeedbackCSV"),
     path('allStudentsCSV', views.allStudentsCSV, name="allStudentsCSV"),
     path('techStudentsCSV', views.techStudentsCSV, name="techStudentsCSV"),
     path('webStudentsCSV', views.webStudentsCSV, name="webStudentsCSV"),
